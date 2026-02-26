@@ -891,7 +891,7 @@ header {
 
 /* ==================== صندوق الصورة العلوي اليميني ==================== */
 .top-right-image-box {
-    position: fixed;
+    position: sticky;  /* ← غيّر من fixed إلى sticky */
     top: 20px;
     right: 20px;
     width: 120px;
@@ -920,7 +920,6 @@ header {
     display: block;
 }
 
-/* الاستجابة للهواتف */
 @media (max-width: 768px) {
     .top-right-image-box {
         position: static;

@@ -890,44 +890,78 @@ header {
 }
 
 /* ==================== صندوق الصورة العلوي اليميني ==================== */
-.top-right-image-box {
-    position: sticky;  /* ← غيّر من fixed إلى sticky */
+/* ==================== صناديق الصور الجانبية ==================== */
+.image-boxes-container {
+    position: fixed;
     top: 20px;
     right: 20px;
-    width: 120px;
+    z-index: 999;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+/* الصندوق الأيمن (الأكبر) */
+.image-box-right {
+    width: 130px;
     height: 280px;
     background: white;
     border: 3px solid var(--primary);
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(212, 175, 55, 0.25);
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: all 0.3s ease;
 }
 
-.top-right-image-box:hover {
+.image-box-right:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 40px rgba(212, 175, 55, 0.35);
 }
 
-.top-right-image-box img {
+/* الصندوق الأيسر (الأصغر) */
+.image-box-left {
+    width: 90px;
+    height: 200px;
+    background: white;
+    border: 3px solid var(--secondary);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(253, 184, 19, 0.2);
+    transition: all 0.3s ease;
+}
+
+.image-box-left:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 32px rgba(253, 184, 19, 0.3);
+}
+
+/* الصور بداخل الصناديق */
+.image-box img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
 
+/* الاستجابة للهواتف */
 @media (max-width: 768px) {
-    .top-right-image-box {
+    .image-boxes-container {
         position: static;
-        width: 100%;
-        max-width: 240px;
-        height: 140px;
+        flex-direction: column;
+        gap: 20px;
         margin: 20px auto;
+        width: fit-content;
         right: unset;
         top: unset;
+    }
+
+    .image-box-right {
+        width: 150px;
+        height: 200px;
+    }
+
+    .image-box-left {
+        width: 120px;
+        height: 160px;
     }
 }

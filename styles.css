@@ -753,143 +753,7 @@ header {
     animation: spin 1s linear infinite;
 }
 
-/* ==================== Responsive ==================== */
-@media (max-width: 768px) {
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .button-group {
-        grid-template-columns: 1fr;
-    }
-
-    .btn-select {
-        width: 100%;
-    }
-
-    .hero-title {
-        font-size: 32px;
-    }
-
-    .hero-description {
-        font-size: 1rem;
-    }
-
-    .survey-section {
-        margin: -30px 20px 40px;
-        padding: 25px;
-    }
-
-    .survey-title {
-        font-size: 24px;
-    }
-
-    .section-title {
-        font-size: 24px;
-    }
-
-    .portfolio-item {
-        flex: 0 0 280px;
-        height: 240px;
-    }
-
-    .categories-buttons {
-        gap: 10px;
-    }
-
-    .category-btn {
-        padding: 10px 15px;
-        font-size: 12px;
-    }
-
-    .features-grid {
-        gap: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    header {
-        padding: 2rem 1rem 1.5rem;
-    }
-
-    .badge {
-        margin-bottom: 0.75rem;
-    }
-
-    .hero-title {
-        font-size: 24px;
-    }
-
-    .hero-description {
-        font-size: 0.95rem;
-    }
-
-    .survey-section {
-        margin: -20px 15px 30px;
-        padding: 20px;
-        border-radius: 15px;
-    }
-
-    .survey-title {
-        font-size: 18px;
-    }
-
-    .section-title {
-        font-size: 20px;
-    }
-
-    .submit-btn {
-        font-size: 16px;
-        padding: 15px;
-    }
-
-    .feature-icon {
-        width: 2.5rem;
-        height: 2.5rem;
-    }
-
-    .btn, .submit-btn {
-        font-size: 14px;
-    }
-
-    .portfolio-item {
-        flex: 0 0 240px;
-        height: 200px;
-    }
-}
-
-/* ==================== Utility Classes ==================== */
-.px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
-}
-
-.px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-}
-
-.pb-24 {
-    padding-bottom: 6rem;
-}
-
-.tracking-tight {
-    letter-spacing: -0.02em;
-}
-
-/* Direction and text alignment */
-[dir="rtl"] {
-    direction: rtl;
-    text-align: right;
-}
-
-[dir="rtl"] select {
-    background-position: right 12px center;
-    padding-right: 15px;
-    padding-left: 40px;
-}
-
-
+/* ==================== صناديق الصور الجانبية ==================== */
 /* ==================== صناديق الصور الجانبية ==================== */
 .image-boxes-container {
     position: fixed;
@@ -902,7 +766,25 @@ header {
     pointer-events: none;
 }
 
-/* الصندوق الأيمن (الأكبر) */
+/* الصندوق الأيسر (الصغير المربع) - على الشمال */
+.image-box-left {
+    width: 120px;
+    height: 120px;
+    background: white;
+    border: 3px solid var(--secondary);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(253, 184, 19, 0.2);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+}
+
+.image-box-left:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 32px rgba(253, 184, 19, 0.3);
+}
+
+/* الصندوق الأيمن (الكبير) - على اليمين */
 .image-box-right {
     width: 130px;
     height: 280px;
@@ -920,24 +802,6 @@ header {
     box-shadow: 0 12px 40px rgba(212, 175, 55, 0.35);
 }
 
-/* الصندوق الأيسر (الأصغر) - على الشمال */
-.image-box-left {
-    width: 200px;
-    height: 200px;
-    background: white;
-    border: 3px solid var(--secondary);
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 6px 24px rgba(253, 184, 19, 0.2);
-    transition: all 0.3s ease;
-    pointer-events: auto;
-}
-
-.image-box-left:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 32px rgba(253, 184, 19, 0.3);
-}
-
 /* الصور بداخل الصناديق */
 .image-box img {
     width: 100%;
@@ -946,26 +810,26 @@ header {
     display: block;
 }
 
-/* الاستجابة للهواتف */
+/* على التلفون - صور بعيد عن بعض */
 @media (max-width: 768px) {
     .image-boxes-container {
-        position: static;
-        flex-direction: column;
-        gap: 20px;
-        margin: 20px auto;
-        width: fit-content;
-        padding: 0;
-        justify-content: center;
-    }
-
-    .image-box-right {
-        width: 150px;
-        height: 200px;
+        position: fixed;
+        top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px;
+        pointer-events: none;
     }
 
     .image-box-left {
-        width: 120px;
-        height: 160px;
+        width: 100px;
+        height: 100px;  /* ← مربع */
+    }
+
+    .image-box-right {
+        width: 100px;
+        height: 180px;
     }
 }
         height: 160px;

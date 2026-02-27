@@ -922,7 +922,7 @@ header {
 
 /* الصندوق الأيسر (الأصغر) - على الشمال */
 .image-box-left {
-    width: 90px;
+    width: 200px;
     height: 200px;
     background: white;
     border: 3px solid var(--secondary);

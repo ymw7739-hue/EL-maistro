@@ -895,7 +895,7 @@ header {
     justify-content: center;
     align-items: center;
     gap: 30px;
-    margin-bottom: 2rem;
+    margin-bottom: 0rem;
 }
 
 .hero-image {
@@ -927,7 +927,7 @@ header {
 /* الصورة المستطيلة بالطول - على اليمين */
 .rectangle-image {
     width: 140px;
-    height: 360px;
+    height: 260px;
     border: 3px solid var(--primary);
 }
 

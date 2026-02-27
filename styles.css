@@ -757,18 +757,20 @@ header {
 /* ==================== صناديق الصور الجانبية ==================== */
 .image-boxes-container {
     position: fixed;
-    top: 50%;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
-    z-index: 999;
+    height: auto;
+    z-index: 9999;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+    padding: 20px;
     pointer-events: none;
-    transform: translateY(-50%);
+    background: transparent;
 }
 
-/* الصندوق الصغير - على الشمال (اليسار) - image2 */
+/* الصندوق الأيسر (الصغير المربع) */
 .image-box-left {
     width: 120px;
     height: 120px;
@@ -777,15 +779,16 @@ header {
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 6px 24px rgba(253, 184, 19, 0.2);
+    transition: all 0.3s ease;
     pointer-events: auto;
-    flex-shrink: 0;
 }
 
 .image-box-left:hover {
+    transform: translateY(-4px);
     box-shadow: 0 10px 32px rgba(253, 184, 19, 0.3);
 }
 
-/* الصندوق الكبير - على اليمين (اليمين) - image1 */
+/* الصندوق الأيمن (الكبير) */
 .image-box-right {
     width: 130px;
     height: 280px;
@@ -794,15 +797,16 @@ header {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(212, 175, 55, 0.25);
+    transition: all 0.3s ease;
     pointer-events: auto;
-    flex-shrink: 0;
 }
 
 .image-box-right:hover {
+    transform: translateY(-5px);
     box-shadow: 0 12px 40px rgba(212, 175, 55, 0.35);
 }
 
-/* الصور بداخل الصناديق */
+/* الصور */
 .image-box img {
     width: 100%;
     height: 100%;
@@ -814,26 +818,17 @@ header {
 @media (max-width: 768px) {
     .image-boxes-container {
         position: fixed;
-        top: 50%;
-        width: 100%;
-        left: 0;
-        right: 0;
-        z-index: 999;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 15px;
-        pointer-events: none;
-        transform: translateY(-50%);
+        top: 0;
+        padding: 12px;
     }
 
     .image-box-left {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
     }
 
     .image-box-right {
-        width: 100px;
-        height: 180px;
+        width: 90px;
+        height: 150px;
     }
 }

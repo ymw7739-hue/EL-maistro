@@ -895,7 +895,7 @@ header {
     justify-content: center;
     align-items: center;
     gap: 30px;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
 }
 
 .hero-image {
@@ -924,16 +924,15 @@ header {
     border: 3px solid var(--secondary);
 }
 
-/* الصورة المستطيلة - على اليمين */
+/* الصورة المستطيلة بالطول - على اليمين */
 .rectangle-image {
-    width: 280px;
-    height: 160px;
+    width: 140px;
+    height: 280px;
     border: 3px solid var(--primary);
 }
 
 .hero-text-wrapper {
-    flex: 1;
-    max-width: 600px;
+    flex: 0 0 auto;
 }
 
 /* على الجوال */
@@ -949,8 +948,8 @@ header {
     }
 
     .rectangle-image {
-        width: 180px;
-        height: 100px;
+        width: 100px;
+        height: 180px;
     }
 
     .hero-text-wrapper {

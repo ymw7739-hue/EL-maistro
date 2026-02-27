@@ -757,12 +757,12 @@ header {
 /* ==================== صناديق الصور الجانبية ==================== */
 .image-boxes-container {
     position: fixed;
-    top: 20px;
+    top: 0;
     width: 100%;
     z-index: 999;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
+    padding: 20px;
     pointer-events: none;
 }
 
@@ -810,28 +810,28 @@ header {
     display: block;
 }
 
-/* على التلفون - صور بعيد عن بعض */
+/* على التلفون - صور ثابتة في الأعلى */
 @media (max-width: 768px) {
     .image-boxes-container {
         position: fixed;
-        top: 20px;
+        top: 0;
         width: 100%;
+        left: 0;
+        right: 0;
+        z-index: 999;
         display: flex;
         justify-content: space-between;
-        padding: 0 15px;
+        padding: 15px;
         pointer-events: none;
     }
 
     .image-box-left {
         width: 100px;
-        height: 100px;  /* ← مربع */
+        height: 100px;
     }
 
     .image-box-right {
         width: 100px;
         height: 180px;
-    }
-}
-        height: 160px;
     }
 }

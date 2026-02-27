@@ -757,16 +757,18 @@ header {
 /* ==================== صناديق الصور الجانبية ==================== */
 .image-boxes-container {
     position: fixed;
-    top: 0;
+    top: 50%;
     width: 100%;
     z-index: 999;
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    align-items: center;
+    padding: 0 20px;
     pointer-events: none;
+    transform: translateY(-50%);
 }
 
-/* الصندوق الأيسر (الصغير المربع) - على الشمال */
+/* الصندوق الصغير - على الشمال (اليسار) - image2 */
 .image-box-left {
     width: 120px;
     height: 120px;
@@ -775,16 +777,15 @@ header {
     border-radius: 14px;
     overflow: hidden;
     box-shadow: 0 6px 24px rgba(253, 184, 19, 0.2);
-    transition: all 0.3s ease;
     pointer-events: auto;
+    flex-shrink: 0;
 }
 
 .image-box-left:hover {
-    transform: translateY(-4px);
     box-shadow: 0 10px 32px rgba(253, 184, 19, 0.3);
 }
 
-/* الصندوق الأيمن (الكبير) - على اليمين */
+/* الصندوق الكبير - على اليمين (اليمين) - image1 */
 .image-box-right {
     width: 130px;
     height: 280px;
@@ -793,12 +794,11 @@ header {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 8px 32px rgba(212, 175, 55, 0.25);
-    transition: all 0.3s ease;
     pointer-events: auto;
+    flex-shrink: 0;
 }
 
 .image-box-right:hover {
-    transform: translateY(-5px);
     box-shadow: 0 12px 40px rgba(212, 175, 55, 0.35);
 }
 
@@ -810,19 +810,21 @@ header {
     display: block;
 }
 
-/* على التلفون - صور ثابتة في الأعلى */
+/* على التلفون */
 @media (max-width: 768px) {
     .image-boxes-container {
         position: fixed;
-        top: 0;
+        top: 50%;
         width: 100%;
         left: 0;
         right: 0;
         z-index: 999;
         display: flex;
         justify-content: space-between;
-        padding: 15px;
+        align-items: center;
+        padding: 0 15px;
         pointer-events: none;
+        transform: translateY(-50%);
     }
 
     .image-box-left {

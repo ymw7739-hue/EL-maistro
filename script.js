@@ -332,37 +332,6 @@ document.querySelectorAll('.category-btn').forEach(btn => {
     });
 });
 
-// ==================== Portfolio Section - Horizontal Scroll ====================
-function loadPortfolio() {
-    const portfolioGrid = document.getElementById('portfolioGrid');
-    if (!portfolioGrid) return;
-    
-    portfolioGrid.innerHTML = '';
-    
-    // Load 6 portfolio images from reception folder
-    for (let i = 1; i <= 6; i++) {
-        const portfolioItem = document.createElement('div');
-        portfolioItem.className = 'portfolio-item';
-        portfolioItem.innerHTML = `<img src="images/images_reception2/${i}.jpg" alt="تصميم حديث ${i}" onerror="this.src='https://via.placeholder.com/320x280?text=تصميم+${i}'">`
-        portfolioGrid.appendChild(portfolioItem);
-    }
-}
-
-// ==================== Testimonials Section ====================
-function loadTestimonials() {
-    const testimonialsSlider = document.getElementById('testimonialsSlider');
-    if (!testimonialsSlider) return;
-    
-    testimonialsSlider.innerHTML = '';
-    
-    // Load testimonial images
-    for (let i = 1; i <= 5; i++) {
-        const testimonialItem = document.createElement('div');
-        testimonialItem.className = 'testimonial-item';
-        testimonialItem.innerHTML = `<img src="images/images_testimonials/${i}.jpg" alt="عميل ${i}" onerror="this.src='https://via.placeholder.com/250x250?text=عميل+${i}'">`
-        testimonialsSlider.appendChild(testimonialItem);
-    }
-}
 
 // ==================== Intersection Observer for Animations ====================
 const observerOptions = {

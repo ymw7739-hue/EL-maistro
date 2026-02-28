@@ -343,7 +343,7 @@ function loadPortfolio() {
     for (let i = 1; i <= 6; i++) {
         const portfolioItem = document.createElement('div');
         portfolioItem.className = 'portfolio-item';
-        portfolioItem.innerHTML = `<img src="images/images_reception/${i}.jpg" alt="تصميم حديث ${i}" onerror="this.src='https://via.placeholder.com/320x280?text=تصميم+${i}'">`
+        portfolioItem.innerHTML = `<img src="images/images_reception2/${i}.jpg" alt="تصميم حديث ${i}" onerror="this.src='https://via.placeholder.com/320x280?text=تصميم+${i}'">`
         portfolioGrid.appendChild(portfolioItem);
     }
 }

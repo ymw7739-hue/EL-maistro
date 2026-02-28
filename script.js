@@ -273,7 +273,7 @@ function resetForm() {
 // ==================== Category Gallery Data ====================
 const categoryData = {
     'reception': {
-        folder: 'images/images_reception',
+        folder: 'images/images_reception2',
         count: 10
     },
     'master-bedroom': {

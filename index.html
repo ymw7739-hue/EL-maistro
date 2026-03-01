@@ -99,7 +99,7 @@
                     <div class="form-group">
                         <label for="location">المكان</label>
                         <select id="location" name="locationType" required>
-                            <option value="">اختر نوع المكان</option>
+                          
                             <option value="كومباوند">كومباوند</option>
                             <option value="عمائر منفصلة">عمائر منفصلة</option>
                         </select>
@@ -117,7 +117,7 @@
                     <div class="form-group">
                         <label for="apartment">حالة الشقة الحالية</label>
                         <select id="apartment" name="apartmentState" required>
-                            <option value="">اختر حالة الشقة</option>
+                            
                             <option value="محارة">محارة</option>
                             <option value="طوب أحمر">طوب أحمر</option>
                         </select>
@@ -127,25 +127,35 @@
                     <div class="form-group">
                         <label for="designType">نوع التصميم المطلوب</label>
                         <select id="designType" name="designType" required>
-                            <option value="">اختر نوع التصميم</option>
-                            <option value="2D">مخططات 2D</option>
-                            <option value="3D">تصميم كامل 3D</option>
+                            
+                            <option value="2">فندقي</option>
+                            <option value="3D">مودرن</option>
+                            <option value="3">ستيل </option>
+                             <option value="3">كلاسيك </option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="floor-type">نوع الأرضيات</label>
                         <select id="floor-type" name="flooring" required>
-                            <option value="">اختر نوع الأرضيات</option>
+                            
                             <option value="بورسلين">بورسلين</option>
                             <option value="سيراميك">سيراميك</option>
+                            <option value="سيراميك">HDF</option>
                         </select>
                     </div>
 
+                     <div class="form-group full">
+                        <label for="customer-location">هل متوافر مع العميل تصميمات 2D او 3D؟</label>
+                        <select id="customer-location" name="clientLocation" required>
+                            
+                            <option value="داخل مصر">نعم</option>
+                            <option value="خارج مصر">لا</option>
+                        </select>
                     <!-- Row 5 -->
                     <div class="form-group">
                         <label for="electricity">تأسيس الكهرباء</label>
                         <select id="electricity" name="electricity" required>
-                            <option value="">اختر نظام الكهرباء</option>
+                           
                             <option value="سمارت">نظام سمارت (Smart Home)</option>
                             <option value="عادية">كهرباء عادية</option>
                         </select>
@@ -153,7 +163,7 @@
                     <div class="form-group">
                         <label for="plumbing">تأسيس السباكة</label>
                         <select id="plumbing" name="plumbing" required>
-                            <option value="">اختر نظام السباكة</option>
+                            
                             <option value="دفن">دفن (مخفي)</option>
                             <option value="عادية">عادية</option>
                         </select>
@@ -163,7 +173,7 @@
                     <div class="form-group full">
                         <label for="customer-location">مكان إقامة العميل الحالي</label>
                         <select id="customer-location" name="clientLocation" required>
-                            <option value="">هل أنت متواجد داخل مصر؟</option>
+                           
                             <option value="داخل مصر">داخل مصر</option>
                             <option value="خارج مصر">خارج مصر</option>
                         </select>
@@ -214,9 +224,7 @@
                          <div class="portfolio-item">
                             <img src="images/portfolio12.jpg" alt="تصميم حديث 2">
                         </div>
-                         <div class="portfolio-item">
-                            <img src="images/portfolio13.jpg" alt="تصميم حديث 2">
-                        </div>
+                    
                         
                     </div>
                 </div>

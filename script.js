@@ -270,67 +270,6 @@ function resetForm() {
     }
 }
 
-// ==================== Category Gallery Data ====================
-const categoryData = {
-    'reception': {
-        folder: 'images/images_reception2',
-        count: 10
-    },
-    'master-bedroom': {
-        folder: 'images/images_master_bedroom',
-        count: 10
-    },
-    'boys-room': {
-        folder: 'images/images_boys_room',
-        count: 10
-    },
-    'girls-room': {
-        folder: 'images/images_girls_room',
-        count: 10
-    },
-    'small-bathroom': {
-        folder: 'images/images_small_bathroom',
-        count: 10
-    },
-    'large-bathroom': {
-        folder: 'images/images_large_bathroom',
-        count: 10
-    },
-    'kitchen': {
-        folder: 'images/images_kitchen',
-        count: 10
-    }
-};
-
-function loadCategory(category) {
-    const gallery = document.getElementById('categoryGallery');
-    gallery.innerHTML = '';
-    
-    const categoryInfo = categoryData[category];
-    if (!categoryInfo) return;
-
-    // Create image paths
-    for (let i = 1; i <= categoryInfo.count; i++) {
-        const imagePath = `${categoryInfo.folder}/${i}.jpg`;
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        item.style.animationDelay = ((i - 1) * 0.1) + 's';
-        item.innerHTML = `<img src="${imagePath}" alt="${category} - صورة ${i}" onerror="this.src='https://via.placeholder.com/250x200?text=صورة+${i}'">`
-        gallery.appendChild(item);
-    }
-}
-
-// Initialize with first category
-loadCategory('reception');
-
-// Category button listeners
-document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        loadCategory(this.dataset.category);
-    });
-});
 
 
 // ==================== Intersection Observer for Animations ====================

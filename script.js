@@ -16,15 +16,7 @@ const cart = [];
 // default number (Egyptian local 01070100112 -> international 201070100112)
 let WHATSAPP_BUSINESS_NUMBER = '201070100112';
 
-if (typeof data !== "undefined" && data) {
-  categoriesStatus = {
-    cakes: true,
-    gato: true,
-    icecream: true,
-    accessories: true,
-    ...data
-  };
-}
+// NOTE: do NOT merge server `data` here at top-level — we handle it safely during init
 
 // ============================================
 // DOM Elements
@@ -48,7 +40,6 @@ const orderForm = document.getElementById('orderForm');
 const orderSummary = document.getElementById('orderSummary');
 const orderTotal = document.getElementById('orderTotal');
 
-const categoryButtons = document.querySelectorAll('[data-category]');
 const detailsSection = document.getElementById('categoryDetails');
 const detailsTitle = document.getElementById('detailsTitle');
 const detailsText = document.getElementById('detailsText');
@@ -104,7 +95,9 @@ database.ref('settings/whatsappNumber').on('value', (snapshot) => {
 // ============================================
 function applyCategoriesStatusToUI() {
   try {
-    categoryButtons.forEach(btn => {
+    // re-query buttons each time to avoid stale NodeList
+    const buttons = document.querySelectorAll('[data-category]');
+    buttons.forEach(btn => {
       const cat = btn.dataset.category;
       if (!cat) return;
       if (categoriesStatus.hasOwnProperty(cat)) {
@@ -128,8 +121,26 @@ function applyCategoriesStatusToUI() {
 // initial load: get categoriesStatus once first to avoid UI flash, then attach realtime listener
 function initCategoriesStatus() {
   database.ref('categoriesStatus').once('value').then(snapshot => {
-    const data = snapshot.val();
-    if (data) categoriesStatus = { ...categoriesStatus, ...data };
+    const fbData = snapshot.val();
+
+    if (fbData && typeof fbData === 'object') {
+      // Firebase has authoritative data — use it
+      categoriesStatus = { ...categoriesStatus, ...fbData };
+      console.log('Loaded categoriesStatus from Firebase:', categoriesStatus);
+    } else {
+      // Firebase empty — fall back to server-provided `data` if present, then write it to Firebase
+      if (typeof data !== "undefined" && data && typeof data === 'object') {
+        categoriesStatus = { ...categoriesStatus, ...data };
+        console.log('Firebase empty — using server `data` for categoriesStatus:', categoriesStatus);
+        // write this initial status to Firebase so subsequent loads are consistent
+        database.ref('categoriesStatus').set(categoriesStatus).catch(err => {
+          console.warn('Failed to write initial categoriesStatus to Firebase:', err);
+        });
+      } else {
+        console.log('No categoriesStatus in Firebase and no server `data` — using defaults:', categoriesStatus);
+      }
+    }
+
     applyCategoriesStatusToUI();
     // attach realtime listener after initial application
     loadCategoriesFromFirebase();
@@ -152,7 +163,7 @@ function loadCategoriesFromFirebase() {
       };
     }
 
-    console.log('Categories:', categoriesStatus);
+    console.log('Categories (realtime):', categoriesStatus);
 
     // apply to UI (hide/show section buttons)
     applyCategoriesStatusToUI();
@@ -450,7 +461,7 @@ const categories = {
     textEn: 'Our delicious ice cream flavors:',
     textAr: 'نكهات آيسكريم لذيذة:',
     items: [
-     {id:51.1 , nameEn: 'Vanilla Ice Cream', nameAr: 'آيسكريم الفانيليا', descriptionEn: 'Pure vanilla bliss in every scoop', descriptionAr: 'سعادة الفانيليا النقية في كل ملعقة', price: 70, image: 'icecream-1.jpg',available: true },
+      {id:51.1 , nameEn: 'Vanilla Ice Cream', nameAr: 'آيسكريم الفانيليا', descriptionEn: 'Pure vanilla bliss in every scoop', descriptionAr: 'سعادة الفانيليا النقية في كل ملعقة', price: 70, image: 'icecream-1.jpg',available: true },
       {id:52.2 , nameEn: 'Chocolate Ice Cream', nameAr: 'آيسكريم الشوكولاتة', descriptionEn: 'Rich dark chocolate flavor', descriptionAr: 'نكهة شوكولاتة داكنة غنية', price: 70, image: 'icecream-2.jpg',available: true },
       {id:53.3 , nameEn: 'Strawberry Ice Cream', nameAr: 'آيسكريم الفراولة', descriptionEn: 'Fresh strawberry delight', descriptionAr: 'متعة الفراولة الطازة', price: 70, image: 'icecream-3.jpg' ,available: true},
       {id:54.4 , nameEn: 'Pistachio Ice Cream', nameAr: 'آيسكريم الفستق', descriptionEn: 'Creamy pistachio premium blend', descriptionAr: 'مزيج فستق كريمي فاخر', price: 70, image: 'icecream-4.jpg',available: true },
@@ -538,8 +549,7 @@ function showCategory(category) {
                 </button>`
               : `<button class="add-to-cart-btn disabled" disabled>
                   ${currentLang === 'en' ? 'Not Available' : 'غير متوفر'}
-                </button>`
-            }
+                </button>`}
           </div>
         </div>
       `;
@@ -549,14 +559,20 @@ function showCategory(category) {
   detailsSection.hidden = false;
 }
 
-categoryButtons.forEach(button => {
-  safeAddEvent(button, 'click', () => showCategory(button.dataset.category));  
-  const category = button.dataset.category;
-  if (categoryImages[category]) {
-    const gradient = 'linear-gradient(180deg, rgba(34, 20, 9, 0.08), rgba(34, 20, 9, 0.35))';
-    button.style.backgroundImage = `${gradient}, url('${categoryImages[category]}')`;
-  }
-});
+// ============================================
+// Category Buttons Initialization (style + click binding)
+// ============================================
+function initCategoryButtons() {
+  document.querySelectorAll('[data-category]').forEach(button => {
+    safeAddEvent(button, 'click', () => showCategory(button.dataset.category));
+    const category = button.dataset.category;
+    if (categoryImages[category]) {
+      const gradient = 'linear-gradient(180deg, rgba(34, 20, 9, 0.08), rgba(34, 20, 9, 0.35))';
+      button.style.backgroundImage = `${gradient}, url('${categoryImages[category]}')`;
+    }
+  });
+}
+initCategoryButtons();
 
 safeAddEvent(detailsClose, 'click', () => {
   detailsSection.hidden = true;
@@ -668,7 +684,6 @@ function renderAdminCategories() {
       <hr>
     `;
 
-    // 👇 ده الجزء الصح بتاع المنتجات
     (cat.items || []).forEach(item => {
       const isAvailable = item.available !== false;
 
@@ -691,27 +706,27 @@ function renderAdminCategories() {
     container.appendChild(categoryDiv);
   });
 
-  // ✅ أضف event listeners بعد ما تنشئ العناصر
+  // add event listeners after DOM creation
   attachAdminEventListeners();
 }
 
-// ✅ دالة جديدة لتوصيل الـ events
+// attach admin listeners
 function attachAdminEventListeners() {
-  // زراير قفل/فتح الأقسام
+  // toggle category buttons
   document.querySelectorAll('.toggle-category-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const category = e.target.dataset.category;
-      const newStatus = e.target.dataset.status === 'true';
+      const category = e.currentTarget.dataset.category;
+      // determine newStatus as inverse of current stored status (safer than dataset)
+      const newStatus = !(categoriesStatus[category] === true);
       toggleCategoryStatus(category, newStatus);
     });
   });
 
-  // زراير إظهار/إخفاء المنتجات
+  // toggle availability buttons
   document.querySelectorAll('.toggle-availability-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const category = e.target.dataset.category;
-      // pass raw dataset value (string) to preserve decimals if any
-      const itemId = e.target.dataset.itemId;
+      const category = e.currentTarget.dataset.category;
+      const itemId = e.currentTarget.dataset.itemId;
       toggleAvailability(category, itemId);
     });
   });
@@ -719,11 +734,11 @@ function attachAdminEventListeners() {
 window.attachAdminEventListeners = attachAdminEventListeners;
 
 function toggleCategoryStatus(category, newStatus) {
-  // ✅ حدّث محليًا أولاً
+  // update locally first
   categoriesStatus[category] = newStatus;
   renderAdminCategories();
 
-  // إذا تم قفل القسم وهو مفتوح، اغلقه
+  // if closing current shown category, hide details
   if (!newStatus && !detailsSection.hidden) {
     const currentCategory = Object.keys(categories).find(c =>
       categories[c].titleEn === detailsTitle.textContent ||
@@ -734,17 +749,17 @@ function toggleCategoryStatus(category, newStatus) {
     }
   }
 
-  // حفظ في Firebase
-  database.ref(`categoriesStatus/${category}`).set(newStatus)
+  // save the whole categoriesStatus object (atomic) to Firebase
+  database.ref('categoriesStatus').set(categoriesStatus)
     .then(() => {
+      console.log('categoriesStatus saved to Firebase:', categoriesStatus);
       showNotification(newStatus ? "✅ تم فتح القسم" : "✅ تم قفل القسم");
-      // apply to UI immediately
       applyCategoriesStatusToUI();
     })
     .catch(err => {
-      console.error(err);
+      console.error('Failed to save categoriesStatus to Firebase:', err);
       showNotification("❌ خطأ في تحديث القسم");
-      // أرجع للحالة السابقة
+      // rollback local change
       categoriesStatus[category] = !newStatus;
       renderAdminCategories();
       applyCategoriesStatusToUI();
@@ -761,16 +776,16 @@ function toggleAvailability(category, itemId) {
     return;
   }
 
-  // عكس حالة التوفر
+  // flip availability locally
   categories[category].items[itemIndex].available = !categories[category].items[itemIndex].available;
 
-  // ✅ أعد الرسم فوراً
+  // re-render admin and details
   renderAdminCategories();
   if (!detailsSection.hidden) {
     showCategory(category);
   }
 
-  // حفظ في Firebase في الخلفية
+  // save full items array for this category
   const updatedArray = categories[category].items;
   database.ref(`categories/${category}/items`).set(updatedArray)
     .then(() => {
@@ -780,7 +795,7 @@ function toggleAvailability(category, itemId) {
     .catch(err => {
       console.error(err);
       showNotification("❌ خطأ في حفظ البيانات");
-      // أرجع للحالة السابقة إذا فشل الحفظ
+      // rollback
       categories[category].items[itemIndex].available = !categories[category].items[itemIndex].available;
       renderAdminCategories();
       applyCategoriesStatusToUI();

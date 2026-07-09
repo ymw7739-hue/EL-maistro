@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abu Al-Saud Bakery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  
+</head>
+<body>
+
+  <div class="page-shell">
+    <header class="topbar">
+      <!-- أضفنا id هنا ليكون عنصر التريجر للإدارة -->
+      <div id="abu-al-saud-title" class="brand" data-en="ABU AL-SAUD" data-ar="أبو السعود">ABU AL-SAUD</div>
+      <div class="actions">
+        <button class="icon-button cart-toggle" aria-label="cart">🛒 <span class="cart-count">0</span></button>
+        <button class="icon-button menu-toggle" aria-label="Menu">أللغة</button>
+      </div>
+    </header>
+
+    <nav class="language-menu" id="languageMenu" hidden>
+      <button class="lang-btn" data-lang="en" data-en="English" data-ar="الإنجليزية">English</button>
+      <button class="lang-btn" data-lang="ar" data-en="Arabic" data-ar="العربية">العربية</button>
+    </nav>
+
+    <aside class="cart-sidebar" id="cartSidebar" hidden>
+      <div class="cart-header">
+        <h3 data-en="Shopping Cart" data-ar="عربة التسوق">Shopping Cart</h3>
+        <button class="cart-close" aria-label="Close cart">✕</button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <p class="empty-cart" data-en="Your cart is empty" data-ar="عربتك فارغة">Your cart is empty</p>
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total-section">
+          <p data-en="Total:" data-ar="الإجمالي:">Total:</p>
+          <p class="cart-total"><span id="cartTotal">0</span> جنيه</p>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn" data-en="Checkout" data-ar="إتمام الشراء">Checkout</button>
+        <button class="clear-cart-btn" id="clearCartBtn" data-en="Clear Cart" data-ar="حذف جميع العناصر">Clear Cart</button>
+      </div>
+    </aside>
+
+    <div class="modal" id="checkoutModal" hidden>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 data-en="Complete Your Order" data-ar="أكمل طلبك">Complete Your Order</h2>
+          <button class="modal-close" id="modalClose">✕</button>
+        </div>
+        
+        <form id="orderForm" class="order-form">
+          <div class="form-group">
+            <label for="customerName" data-en="Full Name" data-ar="الاسم الكامل">Full Name</label>
+            <input type="text" id="customerName" name="name" required placeholder="ألاسم هنا">
+          </div>
+
+          <div class="form-group">
+            <label for="customerPhone" data-en="Phone Number" data-ar="رقم الهاتف">Phone Number</label>
+            <input type="tel" id="customerPhone" name="phone" required placeholder="010********">
+          </div>
+
+          <div class="form-group">
+            <label for="customerAddress" data-en="Address" data-ar="العنوان">Address</label>
+            <textarea id="customerAddress" name="address" rows="3" required placeholder="مدينة نصر او مصر الجديدة"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="customerNotes" data-en="Notes" data-ar="ملاحظات">Notes</label>
+            <textarea id="customerNotes" name="notes" rows="3" placeholder="أي ملاحظات خاصة؟"></textarea>
+          </div>
+
+          <div class="order-summary">
+            <h3 data-en="Order Summary" data-ar="ملخص الطلب">Order Summary</h3>
+            <div id="orderSummary"></div>
+            <p class="order-total"><span data-en="Total:" data-ar="الإجمالي:">Total:</span> <strong id="orderTotal">0</strong> جنيه</p>
+          </div>
+
+          <button type="submit" class="submit-order-btn" data-en="Place Order" data-ar="تأكيد الطلب">Place Order</button>
+          <button type="button" class="cancel-order-btn" id="cancelOrderBtn" data-en="Cancel" data-ar="إلغاء">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <main>
+      <section class="hero">
+        <div class="hero-banner">
+          <img class="hero-banner-image" src="hero-banner-image.jpg" alt="Hero banner" />
+          <div class="hero-banner-copy">
+            <p class="eyebrow" data-en="Premium Dessert Shop" data-ar="متجر الحلويات الفاخرة">Premium Dessert Shop</p>
+            <h1 data-en="Taste Abu Saud's luxurious sweets" data-ar="تذوق الحلويات الفاخرة من أبو السعود">Taste Abu Saud's luxurious sweets</h1>
+            <p class="hero-text" data-en="Click any image below to see all varieties" data-ar="اضغط على أي صورة في الأسفل عشان تشوف كل الأصناف الخاصة بها">Click any image below to see all varieties</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card-grid" aria-label="Choose a category">
+  <button class="category-card category-cakes" data-category="cakes">
+    <span data-en="CAKES" data-ar="الكيك">CAKES</span>
+  </button>
+  <button class="category-card category-gato" data-category="gato">
+    <span data-en="GATO" data-ar="جاتو">GATO</span>
+  </button>
+  <button class="category-card category-icecream" data-category="icecream">
+    <span data-en="ICE CREAM" data-ar="آيسكريم">ICE CREAM</span>
+  </button>
+  <button class="category-card category-accessories" data-category="accessories">
+    <span data-en="ACCESSORIES" data-ar="إكسسوارات">ACCESSORIES</span>
+  </button>
+</section>
+
+      <section class="category-details" id="categoryDetails" aria-live="polite" hidden>
+        <div class="details-header">
+          <h3 id="detailsTitle">أصناف</h3>
+          <button type="button" class="details-close" id="detailsClose" aria-label="Close category details">✕</button>
+        </div>
+        <p id="detailsText">أختر صورة من فوق لمعرفة الأصناف</p>
+        <div id="detailsGrid" class="product-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- لوحة تحكم ا��أدمن الخفية -->
+  <div id="adminPanel" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:#fff; z-index:9999; padding:40px; overflow:auto;">
+    <h2>Admin Panel</h2>
+    <div id="adminCategories"></div>
+    <button onclick="closeAdminPanel()">Close</button>
+  </div>
+
+ <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+ <script src="script.js"></script>
+
+</body>
+</html>
